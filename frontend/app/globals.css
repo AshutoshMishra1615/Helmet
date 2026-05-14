@@ -1,0 +1,221 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --safe-rgb: 34, 197, 94;
+  --warning-rgb: 245, 158, 11;
+  --critical-rgb: 239, 68, 68;
+  --fall-rgb: 220, 38, 38;
+  --inactive-rgb: 100, 116, 139;
+  --smoke-rgb: 168, 85, 247;
+  --primary-rgb: 56, 189, 248;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  overscroll-behavior: none;
+}
+
+body {
+  background-color: #080f1e;
+  background-image: radial-gradient(ellipse at top, #0f2040 0%, #080f1e 70%);
+  color: #f1f5f9;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: #0f1f35; }
+::-webkit-scrollbar-thumb { background: #1e3a5f; border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: #38bdf8; }
+
+/* Status pulse animation */
+@keyframes statusPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.status-pulse {
+  animation: statusPulse 1.5s ease-in-out infinite;
+}
+
+/* Critical flash for fall banners */
+@keyframes criticalFlash {
+  0%, 100% { background-color: rgba(220, 38, 38, 0.12); }
+  50% { background-color: rgba(220, 38, 38, 0.28); }
+}
+
+.critical-flash {
+  animation: criticalFlash 1.2s ease-in-out infinite;
+}
+
+/* Slide-up animation for cards */
+@keyframes slideUp {
+  from { transform: translateY(16px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.slide-up {
+  animation: slideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Shimmer for skeleton loading */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    #162840 25%,
+    #1e3450 50%,
+    #162840 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.6s infinite;
+}
+
+/* Glow pulse for active alerts */
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 8px rgba(220, 38, 38, 0.2), 0 0 0 0 rgba(220, 38, 38, 0); }
+  50% { box-shadow: 0 0 24px rgba(220, 38, 38, 0.5), 0 0 0 4px rgba(220, 38, 38, 0.1); }
+}
+
+.glow-fall {
+  animation: glowPulse 2s ease-in-out infinite;
+}
+
+/* Slide down for top banners */
+@keyframes slideDown {
+  from { transform: translateY(-100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.slide-down {
+  animation: slideDown 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Live pulse dot */
+@keyframes livePulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.5); opacity: 0.6; }
+}
+
+.live-dot {
+  animation: livePulse 1.5s ease-in-out infinite;
+}
+
+/* Number counter animation */
+.stat-number {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+/* Gas level bar track */
+.gas-bar-track {
+  height: 4px;
+  border-radius: 999px;
+  background: #1e3450;
+  overflow: hidden;
+}
+
+.gas-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Staggered card entrance */
+@keyframes cardEntrance {
+  from { transform: translateY(12px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.card-enter {
+  animation: cardEntrance 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+}
+.card-enter:nth-child(1) { animation-delay: 0ms; }
+.card-enter:nth-child(2) { animation-delay: 60ms; }
+.card-enter:nth-child(3) { animation-delay: 120ms; }
+.card-enter:nth-child(4) { animation-delay: 180ms; }
+.card-enter:nth-child(5) { animation-delay: 240ms; }
+.card-enter:nth-child(6) { animation-delay: 300ms; }
+
+/* Glassmorphism panel */
+.glass {
+  background: rgba(15, 31, 53, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(30, 58, 95, 0.4);
+}
+
+/* Card hover lift */
+.card-lift {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+}
+.card-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+.card-lift:active {
+  transform: translateY(0);
+}
+
+/* Activity badge colors */
+.activity-idling { color: #94a3b8; }
+.activity-walking { color: #2dd4bf; }
+.activity-running { color: #f59e0b; }
+.activity-fall { color: #ef4444; }
+
+/* Subtle counter animation */
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.count-anim {
+  animation: countUp 0.35s ease-out forwards;
+}
+
+/* Fade-in utility */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Range slider styling */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  border-radius: 999px;
+  background: #1e3450;
+  outline: none;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #0ea5e9, #38bdf8);
+  cursor: pointer;
+  border: 2px solid #0a1628;
+  box-shadow: 0 2px 8px rgba(14, 165, 233, 0.4);
+}
+
